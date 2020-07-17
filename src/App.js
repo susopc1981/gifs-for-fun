@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Search from "./components/Search";
+import GifArea from "./components/GifArea";
 // HACER UNA LLAMADA A UN API PARA QUE NOS MUESTRE LOS TRENDING
 // UN BUSCADOR QUE NOS DEVUELVA LOS GIPH QUE BUSQUEMOS POR REFERENCIA
 function App() {
@@ -13,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <Search handleClick={handleClick} />
+      <GifArea/>
     </div>
   );
 }
