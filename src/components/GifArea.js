@@ -8,25 +8,26 @@ class GifArea extends React.Component {
   }
 
   //Ruta: data<[index]<images<original<url
-  getApi=async()=>{
-    let url= "https://api.giphy.com/v1/gifs/trending?api_key=LlMFRKH1LFUFQwmF51v05p3dm9TFYUf0"
-    if(this.props.search!==""){
-      url="https://api.giphy.com/v1/gifs/search?api_key=LlMFRKH1LFUFQwmF51v05p3dm9TFYUf0&q="+this.props.search;
-      
+  getApi = async () => {
+    let url =
+      "https://api.giphy.com/v1/gifs/trending?api_key=LlMFRKH1LFUFQwmF51v05p3dm9TFYUf0";
+    if (this.props.search !== "") {
+      url =
+        "https://api.giphy.com/v1/gifs/search?api_key=LlMFRKH1LFUFQwmF51v05p3dm9TFYUf0&q=" +
+        this.props.search;
     }
     const result = await fetch(url);
     const resultJson = await result.json();
     console.log(resultJson);
-       const arrayUrls = resultJson.data.map((value) => value.images.original.url);
+    const arrayUrls = resultJson.data.map((value) => value.images.original.url);
     console.log(arrayUrls);
     this.setState({ trendingUrls: arrayUrls });
-
-  }
+  };
   componentDidMount() {
-    this.getApi()
+    this.getApi();
   }
   componentDidUpdate() {
-    this.getApi()
+    this.getApi();
   }
 
   render() {
