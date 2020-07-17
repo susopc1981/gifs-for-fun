@@ -13,8 +13,9 @@ function App() {
 
   return (
     <div className="App">
+      <h1 className="text-center">Busca tu gif</h1>
       <Search handleClick={handleClick} />
-      <GifArea search={searchInput}/>
+      <GifArea search={searchInput} />
     </div>
   );
 }
