@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Spinner } from "reactstrap";
+import { getApi } from "../api/getApi";
 
 class GifArea extends React.Component {
   constructor(props) {
@@ -8,28 +9,17 @@ class GifArea extends React.Component {
   }
 
   //Ruta: data<[index]<images<original<url
-  getApi = async () => {
-    let url =
-      "https://api.giphy.com/v1/gifs/trending?api_key=LlMFRKH1LFUFQwmF51v05p3dm9TFYUf0";
-    if (this.props.search !== "") {
-      url =
-        "https://api.giphy.com/v1/gifs/search?api_key=LlMFRKH1LFUFQwmF51v05p3dm9TFYUf0&limit=5&q=" +
-        this.props.search;
-    }
-    console.log(url);
-    const result = await fetch(url);
-    const resultJson = await result.json();
-    const arrayUrls = resultJson.data.map((value) => value.images.original.url);
-    console.log(arrayUrls[0]);
-    this.setState({ trendingUrls: arrayUrls });
-  };
-  componentDidMount() {
-    this.getApi();
+
+  async componentDidMount() {
+    const data = await getApi(this.props.search);
+    this.setState({ trendingUrls: data });
   }
-  componentDidUpdate(prevProps) {
+
+  async componentDidUpdate(prevProps) {
     console.log(prevProps.search, this.props.search);
     if (this.props.search !== prevProps.search) {
-      this.getApi();
+      const data = await getApi(this.props.search);
+      this.setState({ trendingUrls: data });
     }
   }
 
