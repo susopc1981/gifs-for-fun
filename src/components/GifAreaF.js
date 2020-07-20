@@ -4,6 +4,7 @@ import { getApi } from "../api/getApi";
 
 const GifAreaF = (props) => {
   const [gifUrls, setGifUrls] = useState();
+  const [errorUrls, setErrorUrls] = useState();
   //Ruta: data<[index]<images<original<url
 
   // async componentDidMount() {
@@ -23,10 +24,14 @@ const GifAreaF = (props) => {
     console.log("Hola");
     async function fetchData() {
       const data = await getApi(props.search);
-      setGifUrls(data);
+      if (data.error === "") {
+        setGifUrls(data.arrayUrls);
+      } else {
+        setErrorUrls(data.error);
+      }
     }
     fetchData();
-  }, []);
+  }, [props.search]);
 
   return (
     <div>
@@ -42,6 +47,8 @@ const GifAreaF = (props) => {
                 </Col>
               );
             })
+          ) : errorUrls ? (
+            <p>Hay error</p>
           ) : (
             <span>
               <p>Estamos trabajando en ello</p>
